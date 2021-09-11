@@ -1,4 +1,5 @@
 # credit: adapted from: https://github.com/azure/azvmimagebuilder/tree/main/solutions/14_Building_Images_WVD
+# requirements: https://docs.microsoft.com/en-us/windows-365/device-images
 #
 # must run elevated if installing apps.  Example code:
 #   {
@@ -10,6 +11,8 @@
 #
 #############################################################################################################################################
 
+connect-azaccount -UseDeviceAuthentication
+Invoke-WebRequest -uri https://raw.githubusercontent.com/cbowlsby/aib/main/aibDeployWindows10Ent.ps1 -OutFile aibDeployWindows10Ent.ps1 -UseBasicParsing
 
 # Register for Azure Image Builder Feature
 Register-AzProviderFeature -FeatureName VirtualMachineTemplatePreview -ProviderNamespace Microsoft.VirtualMachineImages

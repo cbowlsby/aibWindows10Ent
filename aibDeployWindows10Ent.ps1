@@ -32,7 +32,7 @@ New-AzResourceGroup -Name $imageResourceGroup -Location $location
 # Create user identity
 # setup role def names, these need to be unique
 $timeInt=$(get-date -UFormat "%s")
-$imageRoleDefName="Azure Image Builder Image Def"+$timeInt
+$imageRoleDefName="Azure Image Builder Image Def "+$timeInt
 $identityName="aibIdentity"+$timeInt
 
 # create identity
@@ -56,8 +56,9 @@ Invoke-WebRequest -Uri $aibRoleImageCreationUrl -OutFile $aibRoleImageCreationPa
 # create role definition
 New-AzRoleDefinition -InputFile  ./aibRoleImageCreation.json
 
-# pause for 2 minutes while waiting for Azure to catch up
-Start-Sleep -s 120
+# pause for 1 minute while waiting for Azure to catch up
+# without this, the next step errors out.  It takes a few seconds for Azure to provision the PrincipalID mentioned earlier and required in the next step
+Start-Sleep -s 60
 
 ################# STOP HERE ##########################################
 

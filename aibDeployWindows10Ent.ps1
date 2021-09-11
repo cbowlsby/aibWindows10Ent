@@ -56,6 +56,11 @@ Invoke-WebRequest -Uri $aibRoleImageCreationUrl -OutFile $aibRoleImageCreationPa
 # create role definition
 New-AzRoleDefinition -InputFile  ./aibRoleImageCreation.json
 
+# pause for 2 minutes while waiting for Azure to catch up
+Start-Sleep -s 120
+
+################# STOP HERE ##########################################
+
 # grant role definition to image builder service principal
 New-AzRoleAssignment -ObjectId $identityNamePrincipalId -RoleDefinitionName $imageRoleDefName -Scope "/subscriptions/$subscriptionID/resourceGroups/$imageResourceGroup"
 

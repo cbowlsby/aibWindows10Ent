@@ -2,13 +2,14 @@
 # Step 1: Set up environment and variables
 
 # Step 1: Import module
+
 Import-Module Az.Accounts
 
 # Step 2: get existing context
 $currentAzContext = Get-AzContext
 
 # destination image resource group
-$imageResourceGroup="W365ImageDemo"
+$imageResourceGroup="Automatedw10ImagePipelineDemo"
 
 # location (see possible locations in main docs)
 $location="westus2"

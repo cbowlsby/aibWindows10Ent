@@ -1,4 +1,3 @@
-
 # Step 1: Set up environment and variables
 
 # Step 1: Import module
@@ -60,8 +59,6 @@ New-AzRoleDefinition -InputFile  ./aibRoleImageCreation.json
 # without this, the next step errors out.  It takes a few seconds for Azure to provision the PrincipalID mentioned earlier and required in the next step
 Start-Sleep -s 60
 
-################# STOP HERE ##########################################
-
 # grant role definition to image builder service principal
 New-AzRoleAssignment -ObjectId $identityNamePrincipalId -RoleDefinitionName $imageRoleDefName -Scope "/subscriptions/$subscriptionID/resourceGroups/$imageResourceGroup"
 
@@ -102,7 +99,9 @@ New-AzResourceGroupDeployment -ResourceGroupName $imageResourceGroup -TemplateFi
 # $getStatus.ProvisioningErrorCode 
 # $getStatus.ProvisioningErrorMessage
 
-
+# pause for 15 minutes while waiting for Azure to catch up
+# without this, the next step errors out irregularly.  Permissions take a bit to populate in Azure
+Start-Sleep -s 900
 
 # Build the image
 Start-AzImageBuilderTemplate -ResourceGroupName $imageResourceGroup -Name $imageTemplateName -NoWait

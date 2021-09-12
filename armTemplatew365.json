@@ -37,7 +37,7 @@
                     },
         
         "properties": {
-            "buildTimeoutInMinutes" : 120,
+            "buildTimeoutInMinutes" : 90,
 
             "vmProfile": 
                     {
@@ -67,10 +67,11 @@
                     },
                     {   
                         "type": "PowerShell",
-                        "name": "BaselineAppInstall",
+                        "name": "baselineAppInstall",
                         "runElevated": true,
                         "runAsSystem": true,
                         "scriptUri": "https://raw.githubusercontent.com/cbowlsby/aib/main/baselineAppInstall.ps1"
+                        
                     },    
                     {
                         "type": "WindowsUpdate",

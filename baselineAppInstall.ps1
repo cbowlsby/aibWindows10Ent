@@ -8,7 +8,7 @@ Start-Sleep -s 20
 
 choco feature enable -n allowGlobalConfirmation
 choco install adobereader
-choco install 7zip.install
+choco install 7zip
 choco install vlc
 
 #download installers

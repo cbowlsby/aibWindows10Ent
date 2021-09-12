@@ -1,6 +1,4 @@
-## Prep Work
-#
-# credit: adapted from: https://github.com/azure/azvmimagebuilder/tree/main/solutions/14_Building_Images_WVD
+## credit: adapted from: https://github.com/azure/azvmimagebuilder/tree/main/solutions/14_Building_Images_WVD
 # requirements: https://docs.microsoft.com/en-us/windows-365/device-images
 #
 # NOTE: Only needs to be done if this script has never been run in a given tenant before
@@ -8,6 +6,8 @@
 #
 # Download script to Azure account
 # Invoke-WebRequest -uri https://raw.githubusercontent.com/cbowlsby/aib/main/aibDeployWindows10Ent.ps1 -OutFile aibDeployWindows10Ent.ps1 -UseBasicParsing
+#
+## Prep Work
 #
 # Register Azure Image Builder Feature in your tenant
 # Register-AzProviderFeature -FeatureName VirtualMachineTemplatePreview -ProviderNamespace Microsoft.VirtualMachineImages

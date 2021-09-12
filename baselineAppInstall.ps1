@@ -6,7 +6,7 @@ Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManage
 
 Start-Sleep -s 20
 
-choco feature enable -y allowGlobalConfirmation
+choco feature enable -n allowGlobalConfirmation
 choco install adobereader
 choco install 7zip.install
 choco install vlc

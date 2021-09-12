@@ -8,7 +8,7 @@ Import-Module Az.Accounts
 $currentAzContext = Get-AzContext
 
 # destination image resource group
-$imageResourceGroup="Automatedw10ImagePipelineDemo"
+$imageResourceGroup="AutomatedImagePipeline"
 
 # location (see possible locations in main docs)
 $location="westus2"

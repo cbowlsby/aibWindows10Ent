@@ -100,8 +100,8 @@ New-AzGallery -GalleryName $sigGalleryName -ResourceGroupName $imageResourceGrou
 New-AzGalleryImageDefinition -GalleryName $sigGalleryName -ResourceGroupName $imageResourceGroup -Location $location -Name $imageDefName -OsState generalized -OsType Windows -Publisher 'ChristopherBowlsby' -Offer 'Windows' -Sku '10EntM365'
 
 # Download image template and configure
-$templateUrl="https://raw.githubusercontent.com/cbowlsby/aib/main/armTemplatew365.json"
-$templateFilePath = "armTemplatew365.json"
+$templateUrl="https://raw.githubusercontent.com/cbowlsby/aib/main/armTemplateWindows10Ent.json"
+$templateFilePath = "armTemplateWindows10Ent.json"
 Invoke-WebRequest -Uri $templateUrl -OutFile $templateFilePath -UseBasicParsing
 ((Get-Content -path $templateFilePath -Raw) -replace '<subscriptionID>',$subscriptionID) | Set-Content -Path $templateFilePath
 ((Get-Content -path $templateFilePath -Raw) -replace '<rgName>',$imageResourceGroup) | Set-Content -Path $templateFilePath

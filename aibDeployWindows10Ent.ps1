@@ -1,3 +1,37 @@
+## Prep Work
+# NOTE: Only needs to be done if this script has never been run in a given tenant before
+# NOTE: Recommend using Azure Cloud Shell to run this tool
+#
+# Download script to Azure account
+# Invoke-WebRequest -uri https://raw.githubusercontent.com/cbowlsby/aib/main/aibDeployWindows10Ent.ps1 -OutFile aibDeployWindows10Ent.ps1 -UseBasicParsing
+# credit: adapted from: https://github.com/azure/azvmimagebuilder/tree/main/solutions/14_Building_Images_WVD
+# requirements: https://docs.microsoft.com/en-us/windows-365/device-images
+#
+# Register Azure Image Builder Feature in your tenant
+# Register-AzProviderFeature -FeatureName VirtualMachineTemplatePreview -ProviderNamespace Microsoft.VirtualMachineImages
+# (do not continue until RegistrationState is set to 'Registered') -> Get-AzProviderFeature -FeatureName VirtualMachineTemplatePreview -ProviderNamespace Microsoft.VirtualMachineImages
+#
+# Check that you are registered for the needed providers, ensure RegistrationState is set to 'Registered'.
+# Get-AzResourceProvider -ProviderNamespace Microsoft.VirtualMachineImages
+# Get-AzResourceProvider -ProviderNamespace Microsoft.Storage 
+# Get-AzResourceProvider -ProviderNamespace Microsoft.Compute
+# Get-AzResourceProvider -ProviderNamespace Microsoft.KeyVault
+#
+# If the needed providers do not show as registered, run the code below, otherwise, skip to the next section
+# Register-AzResourceProvider -ProviderNamespace Microsoft.VirtualMachineImages
+# Register-AzResourceProvider -ProviderNamespace Microsoft.Storage
+# Register-AzResourceProvider -ProviderNamespace Microsoft.Compute
+# Register-AzResourceProvider -ProviderNamespace Microsoft.KeyVault
+#
+# Final step: Add AZ PS modules to support AzUserAssignedIdentity and Az AIB
+# 'Az.ImageBuilder', 'Az.ManagedServiceIdentity' | ForEach-Object {Install-Module -Name $_ -AllowPrerelease}
+#
+#############################################################################################################################################
+
+
+
+
+
 ## Phase 1: Set up environment and variables
 # Import module
 Import-Module Az.Accounts
@@ -81,14 +115,23 @@ Invoke-WebRequest -Uri $templateUrl -OutFile $templateFilePath -UseBasicParsing
 # Submit the template
 New-AzResourceGroupDeployment -ResourceGroupName $imageResourceGroup -TemplateFile $templateFilePath -api-version "2020-02-14" -imageTemplateName $imageTemplateName -svclocation $location
 
-# Optional - if you have any errors running the above, run:
-# $getStatus=$(Get-AzImageBuilderTemplate -ResourceGroupName $imageResourceGroup -Name $imageTemplateName)
-# $getStatus.ProvisioningErrorCode 
-# $getStatus.ProvisioningErrorMessage
-
 # pause for 15 minutes while waiting for Azure to catch up
 # without this, the next step errors out irregularly.  Permissions take a bit to populate in Azure
 Start-Sleep -s 900
 
 # Build the image
 Start-AzImageBuilderTemplate -ResourceGroupName $imageResourceGroup -Name $imageTemplateName -NoWait
+
+
+
+
+
+# Optional - if you have any errors running the above, run:
+# $getStatus=$(Get-AzImageBuilderTemplate -ResourceGroupName $imageResourceGroup -Name $imageTemplateName)
+# $getStatus.ProvisioningErrorCode 
+# $getStatus.ProvisioningErrorMessage
+#
+# This shows all the properties if desired
+# $getStatus | Format-List -Property *
+
+# Once the template is built, if you do not intend to use this again delete all resources used to build the template.

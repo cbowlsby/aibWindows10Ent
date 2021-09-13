@@ -58,7 +58,7 @@
                         "name": "baselineAppInstall",
                         "runElevated": true,
                         "runAsSystem": true,
-                        "scriptUri": "https://raw.githubusercontent.com/cbowlsby/aib/main/baselineAppInstallChoco.ps1"
+                        "scriptUri": "https://raw.githubusercontent.com/cbowlsby/aibWindows10Ent/main/baselineAppInstallChoco.ps1"
                         
                     },    
                     {

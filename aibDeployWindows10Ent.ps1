@@ -5,7 +5,7 @@
 # NOTE: Recommend using Azure Cloud Shell to run this tool
 #
 # Download script to Azure account
-# Invoke-WebRequest -uri https://raw.githubusercontent.com/cbowlsby/aib/main/aibDeployWindows10Ent.ps1 -OutFile aibDeployWindows10Ent.ps1 -UseBasicParsing
+# Invoke-WebRequest -uri https://raw.githubusercontent.com/cbowlsby/aibWindows10Ent/main/aibDeployWindows10Ent.ps1 -OutFile aibDeployWindows10Ent.ps1 -UseBasicParsing
 #
 ## Prep Work
 #
@@ -69,7 +69,7 @@ $identityNameResourceId=$(Get-AzUserAssignedIdentity -ResourceGroupName $imageRe
 $identityNamePrincipalId=$(Get-AzUserAssignedIdentity -ResourceGroupName $imageResourceGroup -Name $identityName).PrincipalId
 
 # Assign permissions for identity to distribute images, then download config and configure
-$aibRoleImageCreationUrl="https://raw.githubusercontent.com/cbowlsby/aib/main/aibRoleImageCreation.json"
+$aibRoleImageCreationUrl="https://raw.githubusercontent.com/cbowlsby/aibWindows10Ent/main/aibRoleImageCreation.json"
 $aibRoleImageCreationPath = "aibRoleImageCreation.json"
 Invoke-WebRequest -Uri $aibRoleImageCreationUrl -OutFile $aibRoleImageCreationPath -UseBasicParsing
 ((Get-Content -path $aibRoleImageCreationPath -Raw) -replace '<subscriptionID>',$subscriptionID) | Set-Content -Path $aibRoleImageCreationPath
@@ -102,7 +102,7 @@ New-AzGallery -GalleryName $sigGalleryName -ResourceGroupName $imageResourceGrou
 New-AzGalleryImageDefinition -GalleryName $sigGalleryName -ResourceGroupName $imageResourceGroup -Location $location -Name $imageDefName -OsState generalized -OsType Windows -Publisher 'ChristopherBowlsby' -Offer 'Windows' -Sku '10EntM365'
 
 # Download image template and configure
-$templateUrl="https://raw.githubusercontent.com/cbowlsby/aib/main/armTemplateWindows10Ent.json"
+$templateUrl="https://github.com/cbowlsby/aibWindows10Ent/blob/main/armTemplateWindows10Ent.json"
 $templateFilePath = "armTemplateWindows10Ent.json"
 Invoke-WebRequest -Uri $templateUrl -OutFile $templateFilePath -UseBasicParsing
 ((Get-Content -path $templateFilePath -Raw) -replace '<subscriptionID>',$subscriptionID) | Set-Content -Path $templateFilePath
@@ -128,12 +128,12 @@ Start-AzImageBuilderTemplate -ResourceGroupName $imageResourceGroup -Name $image
 
 
 
-# Optional - if you have any errors running the above, run:
+# Optional, only needed if you have any errors running the above:
 # $getStatus=$(Get-AzImageBuilderTemplate -ResourceGroupName $imageResourceGroup -Name $imageTemplateName)
 # $getStatus.ProvisioningErrorCode 
 # $getStatus.ProvisioningErrorMessage
 #
-# This shows all the properties if desired
+# This shows all properties if desired
 # $getStatus | Format-List -Property *
 
 # Once the template is built, if you do not intend to use this again delete all resources used to build the template.

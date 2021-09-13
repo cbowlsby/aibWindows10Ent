@@ -1,7 +1,7 @@
 ## credit: adapted from: https://github.com/azure/azvmimagebuilder/tree/main/solutions/14_Building_Images_WVD
-# requirements: https://docs.microsoft.com/en-us/windows-365/device-images
+# meets Windows 365 custom image requirements: https://docs.microsoft.com/en-us/windows-365/device-images
 #
-# NOTE: Only needs to be done if this script has never been run in a given tenant before
+# NOTE: The following prep work prior to running the body of the script only needs to be done if this script has never been run in a given tenant before
 # NOTE: Recommend using Azure Cloud Shell to run this tool
 #
 # Download script to Azure account

@@ -6,4 +6,4 @@
 <br>
 <br>
 
-Download aibDeployWindows10Ent.ps1 and run in Azure Cloud Shell inside your tenant to deploy the image template
+**Download aibDeployWindows10Ent.ps1 and run in Azure Cloud Shell inside your tenant to deploy the image template**
